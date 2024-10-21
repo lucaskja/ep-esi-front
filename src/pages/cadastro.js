@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './cadastro.css'; // Import the CSS file
+import './cadastro.css'; // Import the CSS file for styling
 
 function Cadastro() {
   const [formData, setFormData] = useState({
@@ -16,9 +16,6 @@ function Cadastro() {
     lattes: ''
   });
 
-  const [error, setError] = useState(null);  // For error handling
-  const [success, setSuccess] = useState(null); // For success message
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -27,37 +24,31 @@ function Cadastro() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),  // Sending form data as JSON
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to register. Please try again.');
-      }
-
-      const result = await response.json();
-      console.log('Registration successful:', result);
-      setSuccess('Registration successful!');
-      setError(null); // Clear errors on success
-    } catch (err) {
-      console.error('Error during registration:', err);
-      setError(err.message);
-      setSuccess(null); // Clear success message on error
-    }
+    // Send the form data to the backend endpoint
+    fetch('/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      // Handle successful registration, e.g., redirect to another page
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      // Handle error
+    });
   };
 
   return (
-    <div className="registration-form">
-      <h1>Registration Form</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="registration-container">
+      <form onSubmit={handleSubmit} className="registration-form">
+        <h1>Registration Form</h1>
         <label>
           Email:
           <input

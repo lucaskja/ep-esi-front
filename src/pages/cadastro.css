@@ -1,86 +1,72 @@
-/* Container for centering the form */
+/* Styles for the registration page */
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full height for centering */
+  background-color: #f2f2f2; /* Light gray background */
+}
+
 .registration-form {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align form at the top so it scrolls with the page */
-    min-height: 100vh; /* Allow full viewport height */
-    padding: 20px; /* Padding around the form to avoid touching the screen edges */
-    background-color: #f2f2f2; /* Light background color */
-    overflow-y: auto; /* Ensure the page can scroll if content overflows */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #61b4f6; /* Border color */
+  padding: 30px; /* Adjust padding for better spacing */
+  border-radius: 10px;
+  background-color: white; /* White background for the form */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Title styling */
+.registration-form h1 {
+  color: #61b4f6; /* Title color */
+}
+
+/* Input fields styling */
+.registration-form input {
+  padding: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px;
+  width: 100%; /* Full width */
+  max-width: 300px; /* Limit max width */
+  margin-bottom: 20px; /* Space between input fields */
+}
+
+/* Input focus styling */
+.registration-form input:focus {
+  border-color: #61b4f6; /* Highlight border color on focus */
+}
+
+/* Button styling */
+.registration-form button {
+  background-color: #e9aa0e; /* Button color */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%; /* Full width */
+  max-width: 300px; /* Limit max width */
+}
+
+.registration-form button:hover {
+  background-color: #d1960b; /* Darker shade on hover */
+}
+
+/* Margin between fields and form */
+.registration-form label {
+  margin-bottom: 5px; /* Space above the input fields */
+  width: 100%; /* Full width for labels */
+  text-align: left; /* Align label text to the left */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 500px) {
+  .registration-form input,
+  .registration-form button {
+    width: 80%; /* Make inputs and button responsive */
   }
-  
-  /* Styling the form */
-  form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: 3px solid #61b4f6; /* Light blue border around the form */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    text-align: center;
-    margin: 20px; /* Add margin around the form for spacing */
-    max-width: 100%; /* Make sure the form never exceeds the screen width */
-    overflow-y: auto; /* Enable scrolling if the form content exceeds the height */
-  }
-  
-  /* Form Title */
-  h1 {
-    color: #e9aa0e; /* Primary color */
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  /* Label Styles */
-  label {
-    display: block;
-    margin-bottom: 10px;
-    color: #333; /* Darker shade of gray */
-    font-weight: bold;
-  }
-  
-  /* Input field styling */
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="date"],
-  input[type="url"] {
-    width: calc(100% - 20px); /* Ensure input width accounts for padding */
-    padding: 10px;
-    margin-bottom: 20px; /* Create space between input fields and form edges */
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 5px;
-    background-color: #f9f9f9; /* Light gray background */
-    color: #333; /* Text color */
-    font-size: 14px;
-    transition: border-color 0.3s;
-  }
-  
-  /* Input hover and focus effects */
-  input:focus {
-    border-color: #61b4f6; /* Focused input border color */
-    outline: none;
-  }
-  
-  /* Button styling */
-  button {
-    background-color: #e9aa0e;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #d1960b; /* Darker shade of the primary color on hover */
-  }
-  
-  /* Responsive styling */
-  @media (max-width: 500px) {
-    form {
-      width: 90%; /* Adjust form width for smaller screens */
-    }
-  }
-  
+}
