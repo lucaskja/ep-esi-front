@@ -12,7 +12,7 @@ function ReportManagement() {
     // Fetch reports for the logged-in student
     fetch(`/student/${studentId}`)
       .then(response => response.json())
-      .then(data => setReports(data.reports)) // Assuming the response contains the reports array
+      .then(data => setReports(data)) // Assuming the response is a list of reports
       .catch(error => console.error('Error fetching reports:', error));
   }, [studentId]);
 
@@ -21,8 +21,8 @@ function ReportManagement() {
       <h1 className="report-management-title">Your Reports</h1>
       <div className="report-list">
         {reports.length > 0 ? (
-          reports.map((report) => (
-            <div key={report.id} className="report-item">
+          reports.map((report, index) => (
+            <div key={index} className="report-item">
               <div className="report-link">
                 {/* Only display the assignment deadline */}
                 Assignment Deadline: {new Date(report.assigmentDeadline).toLocaleDateString('pt-BR')}
