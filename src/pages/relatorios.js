@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './relatorios.css'; // Import the CSS for styling
+import './relatorios.css';
 
 function ReportManagement() {
   const [reports, setReports] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the reports for the student from the backend (assuming the student ID is stored in localStorage)
     const studentId = localStorage.getItem('studentId');
     fetch(`/student/${studentId}`)
       .then(response => response.json())
@@ -22,14 +21,16 @@ function ReportManagement() {
       <div className="reports-list">
         {reports.map((report, index) => (
           <div key={index} className="report-item">
-            <a href={`/report/${index}`} className="report-link">
+            <button
+              className="report-link"
+              onClick={() => navigate(`/report/${index}`)} // Pass the report ID
+            >
               {`Report - ${index + 1}`}
-            </a>
+            </button>
           </div>
         ))}
       </div>
 
-      {/* Button to write a new report */}
       <button
         className="write-report-button"
         onClick={() => navigate('/write-report')}
