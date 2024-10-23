@@ -8,9 +8,25 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic (you can log or send data here)
-    console.log('Login Data:', { email, password });
+    // Send the login data to the backend endpoint
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          // Handle successful login, e.g., redirect to another page
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          // Handle error
+        });
   };
+
 
   return (
     <div className="login-container">
