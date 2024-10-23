@@ -1,0 +1,59 @@
+/* Container styling */
+.report-management-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f2f2f2; /* Same light gray background */
+  min-height: 100vh;
+}
+
+/* Title styling */
+.report-management-title {
+  color: #e9aa0e; /* Same yellow color for titles */
+  margin-bottom: 30px;
+}
+
+/* List of reports */
+.report-list {
+  width: 100%;
+  max-width: 1000px; /* Limit max width for better readability */
+}
+
+/* Individual report item */
+.report-item {
+  background-color: white;
+  border: 2px solid #61b4f6; /* Border color consistent with other pages */
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px; /* Space between report items */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex;
+  align-items: center;
+}
+
+/* Link styling */
+.report-link {
+  color: #61b4f6; /* Blue color for the assignment deadline text */
+  font-size: 18px;
+  text-decoration: none;
+  flex-grow: 1;
+  text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .report-list {
+    width: 100%;
+  }
+
+  .report-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .report-link {
+    text-align: left;
+    font-size: 16px;
+  }
+}
