@@ -5,6 +5,7 @@ import Cadastro from './pages/cadastro';
 import Login from './pages/login';  // Import the Login page
 import Home from './pages/home';    // Import the Home page
 import ReportManagement from './pages/relatorios';
+import ReportVisualization from './pages/visualizacaoRelatorio';
 import WriteReport from './pages/escreverRelatorio';
 //import Profile from './pages/profile';  // Import other pages
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/home" element={<><Header /><Home /></>} />
         <Route path="/report-management" element={<><Header /><ReportManagement /></>} />
         <Route path="/write-report" element={<><Header /><WriteReport/></>} />
+        <Route path="/report/:id" element={<><Header /><ReportVisualization /></>} />
         {/*<Route path="/profile" element={<><Header /><Profile /></>} />*/}
       </Routes>
     </Router>
