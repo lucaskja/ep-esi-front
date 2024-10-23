@@ -1,4 +1,4 @@
-/* Styles for the registration page */
+/* Estilos para a página de registro */
 .registration-container {
   display: flex;
   justify-content: center;
@@ -17,11 +17,19 @@
   border-radius: 10px;
   background-color: white; /* White background for the form */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 100%;
+  max-width: 400px; /* Ensure the form has a max width */
 }
 
-/* Title styling */
-.registration-form h1 {
-  color: #61b4f6; /* Title color */
+/* Estilo específico para campos de login e senha */
+.registration-form input[type="email"],
+.registration-form input[type="password"] {
+  width: 100%; /* Full width */
+  margin-bottom: 20px; /* Space between input fields */
+  padding: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px;
+  box-sizing: border-box; /* Prevent padding from affecting width */
 }
 
 /* Input fields styling */
@@ -30,8 +38,8 @@
   border: 1px solid #ccc; /* Light gray border */
   border-radius: 5px;
   width: 100%; /* Full width */
-  max-width: 300px; /* Limit max width */
   margin-bottom: 20px; /* Space between input fields */
+  box-sizing: border-box; /* Ensure padding doesn't overflow */
 }
 
 /* Input focus styling */
@@ -50,23 +58,30 @@
   transition: background-color 0.3s;
   width: 100%; /* Full width */
   max-width: 300px; /* Limit max width */
+  margin-top: 10px; /* Space between button and inputs */
 }
 
 .registration-form button:hover {
   background-color: #d1960b; /* Darker shade on hover */
 }
 
-/* Margin between fields and form */
+/* Label styling */
 .registration-form label {
   margin-bottom: 5px; /* Space above the input fields */
   width: 100%; /* Full width for labels */
   text-align: left; /* Align label text to the left */
+  font-weight: bold; /* Make labels bold for better visibility */
+}
+
+/* Ensure proper spacing between input and label */
+.registration-form input[type="date"] {
+  padding: 9px;
 }
 
 /* Mobile responsive adjustments */
 @media (max-width: 500px) {
   .registration-form input,
   .registration-form button {
-    width: 80%; /* Make inputs and button responsive */
+    width: 100%; /* Ensure full width on mobile */
   }
 }
