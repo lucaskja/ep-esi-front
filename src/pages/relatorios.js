@@ -1,38 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './relatorios.css'; // Import CSS file for styling
+import './relatorios.css'; // Import the CSS for styling
 
 function ReportManagement() {
   const [reports, setReports] = useState([]);
   const navigate = useNavigate();
 
-  const studentId = localStorage.getItem('studentId'); // Assuming studentId is stored in localStorage
-
   useEffect(() => {
-    // Fetch reports for the logged-in student
+    // Fetch the reports for the student from the backend (assuming the student ID is stored in localStorage)
+    const studentId = localStorage.getItem('studentId');
     fetch(`/student/${studentId}`)
       .then(response => response.json())
-      .then(data => setReports(data)) // Assuming the response is a list of reports
+      .then(data => setReports(data))
       .catch(error => console.error('Error fetching reports:', error));
-  }, [studentId]);
+  }, []);
 
   return (
     <div className="report-management-container">
       <h1 className="report-management-title">Your Reports</h1>
-      <div className="report-list">
-        {reports.length > 0 ? (
-          reports.map((report, index) => (
-            <div key={index} className="report-item">
-              <div className="report-link">
-                {/* Only display the assignment deadline */}
-                Assignment Deadline: {new Date(report.assigmentDeadline).toLocaleDateString('pt-BR')}
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No reports found</p>
-        )}
+
+      <div className="reports-list">
+        {reports.map((report, index) => (
+          <div key={index} className="report-item">
+            <a href={`/report/${index}`} className="report-link">
+              {`Report - ${index + 1}`}
+            </a>
+          </div>
+        ))}
       </div>
+
+      {/* Button to write a new report */}
+      <button
+        className="write-report-button"
+        onClick={() => navigate('/write-report')}
+      >
+        Write a New Report
+      </button>
     </div>
   );
 }
