@@ -1,0 +1,82 @@
+.report-management-ccp-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    max-width: 900px;
+    margin: auto;
+  }
+  
+  .report-id-form {
+    margin-bottom: 30px;
+    background-color: #e9aa0e;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .report-id-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  .report-id-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .report-id-form button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #61b4f6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .report-id-form button:hover {
+    background-color: #4d9bc6;
+  }
+  
+  .report-details {
+    margin-top: 20px;
+    background-color: #e9aa0e;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .ccp-review-form {
+    margin-top: 20px;
+  }
+  
+  .ccp-review-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  .ccp-review-form textarea,
+  .ccp-review-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .ccp-review-form button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #61b4f6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .ccp-review-form button:hover {
+    background-color: #4d9bc6;
+  }
+  

@@ -1,77 +1,99 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import './visualizacaoRelatorio.css'; // CSS for styling
+import './visualizacaoRelatorio.css'; // Assuming you have a CSS file for styling
 
-function ReportVisualization() {
-  const { id } = useParams(); // Report ID from the URL
+function ReportView() {
+  const { reportId } = useParams();
   const [report, setReport] = useState(null);
+  const [professorOpinion, setProfessorOpinion] = useState('');
+  const [professorFinalOpinion, setProfessorFinalOpinion] = useState('');
+  const [isProfessor, setIsProfessor] = useState(false);
 
   useEffect(() => {
-    const studentId = localStorage.getItem('studentId');
-    // Fetch the specific report using the report ID
-    fetch(`/student/${studentId}/report/${id}`)
-      .then(response => response.json())
-      .then(data => setReport(data))
-      .catch(error => console.error('Error fetching report:', error));
-  }, [id]);
+    // Fetch the report details based on the reportId
+    fetch(`/api/reports/${reportId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setReport(data);
+      })
+      .catch((error) => console.error('Error fetching report:', error));
 
-  if (!report) {
-    return <div>Loading...</div>;
-  }
+    // Check if the logged-in user is a professor
+    const role = localStorage.getItem('role');
+    if (role === 'PROFESSOR') {
+      setIsProfessor(true);
+    }
+  }, [reportId]);
+
+  const handleSubmitReview = (e) => {
+    e.preventDefault();
+
+    const professorId = localStorage.getItem('userId'); // Get professorId from storage
+
+    const reviewData = {
+      professorId: professorId,
+      professorOpinion: professorOpinion,
+      professorFinalOpinion: professorFinalOpinion,
+    };
+
+    fetch('/api/professor', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(reviewData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Review submitted successfully:', data);
+        // Handle success (e.g., display a success message)
+      })
+      .catch((error) => console.error('Error submitting review:', error));
+  };
 
   return (
-    <div className="report-visualization-container">
-      <h1 className="report-visualization-title">Report Details</h1>
+    <div className="report-view-container">
+      {report && (
+        <div>
+          <h1>Report Details</h1>
+          <p><strong>Academic Events Resume:</strong> {report.academicEventsResume}</p>
+          <p><strong>Research Resume:</strong> {report.researchResume}</p>
+          <p><strong>Student Observation:</strong> {report.studentObservation}</p>
+          <p><strong>Assignment Deadline:</strong> {report.assigmentDeadline}</p>
+          {/* Display other report attributes as necessary */}
 
-      <div className="report-details">
-        <div className="report-row">
-          <strong>Professor Opinion:</strong> <span>{report.professorOpinion}</span>
+          {isProfessor && (
+            <div className="professor-review-form">
+              <h2>Review Report</h2>
+              <form onSubmit={handleSubmitReview}>
+                <label>
+                  Professor Opinion:
+                  <textarea
+                    value={professorOpinion}
+                    onChange={(e) => setProfessorOpinion(e.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Professor Final Opinion:
+                  <select
+                    value={professorFinalOpinion}
+                    onChange={(e) => setProfessorFinalOpinion(e.target.value)}
+                    required
+                  >
+                    <option value="">Select Opinion</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="REJECTED">Rejected</option>
+                  </select>
+                </label>
+                <button type="submit">Review</button>
+              </form>
+            </div>
+          )}
         </div>
-        <div className="report-row">
-          <strong>Professor Final Opinion:</strong> <span>{report.professorFinalOpinion}</span>
-        </div>
-        <div className="report-row">
-          <strong>CCP Opinion:</strong> <span>{report.ccpOpinion}</span>
-        </div>
-        <div className="report-row">
-          <strong>CCP Final Opinion:</strong> <span>{report.ccpFinalOpinion}</span>
-        </div>
-        <div className="report-row">
-          <strong>Academic Events Resume:</strong> <span>{report.academicEventsResume}</span>
-        </div>
-        <div className="report-row">
-          <strong>Research Resume:</strong> <span>{report.researchResume}</span>
-        </div>
-        <div className="report-row">
-          <strong>Student Observation:</strong> <span>{report.studentObservation}</span>
-        </div>
-        <div className="report-row">
-          <strong>Qualification Exam Date:</strong> <span>{report.qualificationExamDate}</span>
-        </div>
-        <div className="report-row">
-          <strong>Qualification Exam Deadline:</strong> <span>{report.qualificationExamDeadline}</span>
-        </div>
-        <div className="report-row">
-          <strong>Language Proficiency Exam Date:</strong> <span>{report.languageProficiencyExamDate}</span>
-        </div>
-        <div className="report-row">
-          <strong>Language Proficiency Deadline:</strong> <span>{report.languageProficiencyDeadline}</span>
-        </div>
-        <div className="report-row">
-          <strong>Assignment Deadline:</strong> <span>{report.assigmentDeadline}</span>
-        </div>
-        <div className="report-row">
-          <strong>Writing Articles:</strong> <span>{report.writingArticles}</span>
-        </div>
-        <div className="report-row">
-          <strong>Reviewing Articles:</strong> <span>{report.reviewingArticles}</span>
-        </div>
-        <div className="report-row">
-          <strong>Approved Articles:</strong> <span>{report.approvedArticles}</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
 
-export default ReportVisualization;
+export default ReportView;

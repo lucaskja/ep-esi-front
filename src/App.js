@@ -7,7 +7,8 @@ import Home from './pages/home';    // Import the Home page
 import ReportManagement from './pages/relatorios';
 import ReportVisualization from './pages/visualizacaoRelatorio';
 import WriteReport from './pages/escreverRelatorio';
-//import Profile from './pages/profile';  // Import other pages
+import ProfessorProfile from './pages/perfilProfessor';
+import ReportManagementCcp from './pages/perfilCcp';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Route path="/report-management" element={<><Header /><ReportManagement /></>} />
         <Route path="/write-report" element={<><Header /><WriteReport/></>} />
         <Route path="/report/:id" element={<><Header /><ReportVisualization /></>} />
+        <Route path="/professor-profile" element={<><Header /><ProfessorProfile /></>} />
+        <Route path="/report-management-ccp" element={<><Header /><ReportManagementCcp /></>} />
         {/*<Route path="/profile" element={<><Header /><Profile /></>} />*/}
       </Routes>
     </Router>

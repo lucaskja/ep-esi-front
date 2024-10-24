@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './relatorios.css';
 
 function ReportManagement() {
   const [reports, setReports] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const studentId = localStorage.getItem('studentId');
-    fetch(`/student/${studentId}`)
-      .then(response => response.json())
-      .then(data => setReports(data))
-      .catch(error => console.error('Error fetching reports:', error));
-  }, []);
+    // If the page is accessed by a professor, they'll have passed a studentId as a query parameter
+    const searchParams = new URLSearchParams(location.search);
+    const studentId = searchParams.get('studentId') || localStorage.getItem('studentId'); // Use student ID for students or professor input
+
+    fetch(`/api/performance-report/student/${studentId}`)
+      .then((response) => response.json())
+      .then((data) => setReports(data))
+      .catch((error) => console.error('Error fetching reports:', error));
+  }, [location.search]);
 
   return (
     <div className="report-management-container">
-      <h1 className="report-management-title">Your Reports</h1>
+      <h1 className="report-management-title">Reports</h1>
 
       <div className="reports-list">
         {reports.map((report, index) => (
           <div key={index} className="report-item">
             <button
               className="report-link"
-              onClick={() => navigate(`/report/${index}`)} // Pass the report ID
+              onClick={() => navigate(`/report/${index}`)}
             >
               {`Report - ${index + 1}`}
             </button>
           </div>
         ))}
       </div>
-
-      <button
-        className="write-report-button"
-        onClick={() => navigate('/write-report')}
-      >
-        Write a New Report
-      </button>
     </div>
   );
 }

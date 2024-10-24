@@ -8,6 +8,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
     // Send the login data to the backend endpoint
     fetch('/api/auth/login', {
       method: 'POST',
@@ -16,17 +17,36 @@ function Login() {
       },
       body: JSON.stringify({ email, password }),
     })
-        .then(response => response.json())
-        .then(data => {
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
           console.log('Success:', data);
-          // Handle successful login, e.g., redirect to another page
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          // Handle error
-        });
-  };
-
+  
+          // Assuming the backend returns the user role in the response, e.g., data.role
+          const { role, userId } = data; // Adjust this to match your backend's response structure
+  
+          // Store the role and userId in localStorage
+          localStorage.setItem('role', role);
+          localStorage.setItem('userId', userId);
+  
+          if (data.role === 'CCP') {
+            // Redirect to the CCP home or report management page
+            window.location.href = '/report-management-ccp';
+          } else if (data.role === 'PROFESSOR') {
+            window.location.href = '/professor-profile';
+          } else {
+            window.location.href = '/home';
+          }
+        } else {
+          console.error('Login failed:', data.message);
+          // Handle login failure
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Handle error
+      });
+  };  
 
   return (
     <div className="login-container">
