@@ -10,12 +10,12 @@ function Login() {
     e.preventDefault();
   
     // Send the login data to the backend endpoint
-    fetch('/api/auth/login', {
+    fetch('http://localhost:8080/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username:email, password }),
     })
       .then(response => response.json())
       .then(data => {
