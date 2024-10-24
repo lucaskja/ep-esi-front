@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './perfilProfessor.css'; // You'll create this CSS file for styling
+import './professorProfile.css'; // You'll create this CSS file for styling
 
 function ProfessorProfile() {
   const [studentId, setStudentId] = useState('');

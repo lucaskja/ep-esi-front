@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './cadastro.css'; // Import the CSS file for styling
+import './register.css'; // Import the CSS file for styling
 
 function Cadastro() {
   const [formData, setFormData] = useState({

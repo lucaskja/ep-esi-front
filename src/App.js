@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';  // Import the Header component
-import Cadastro from './pages/cadastro';
-import Login from './pages/login';  // Import the Login page
-import Home from './pages/home';    // Import the Home page
-import ReportManagement from './pages/relatorios';
-import ReportVisualization from './pages/visualizacaoRelatorio';
-import WriteReport from './pages/escreverRelatorio';
-import ProfessorProfile from './pages/perfilProfessor';
-import ReportManagementCcp from './pages/perfilCcp';
+import Cadastro from './pages/register/register';
+import Login from './pages/login/login';  // Import the Login page
+import Home from './pages/home/home';    // Import the Home page
+import ReportManagement from './pages/report/report';
+import ReportVisualization from './pages/report/viewReport';
+import WriteReport from './pages/report/writeReport';
+import ProfessorProfile from './pages/profile/professorProfile/professorProfile';
+import ReportManagementCcp from './pages/profile/ccpProfile/profileCcp';
 
 function App() {
   return (

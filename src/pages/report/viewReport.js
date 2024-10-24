@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import './visualizacaoRelatorio.css'; // Assuming you have a CSS file for styling
+import './viewReport.css'; // Assuming you have a CSS file for styling
 
 function ReportView() {
   const { reportId } = useParams();

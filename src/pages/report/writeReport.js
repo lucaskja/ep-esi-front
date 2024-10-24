@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './escreverRelatorio.css'; // Import the CSS file for styling
+import './writeReport.css'; // Import the CSS file for styling
 
 function WriteReport() {
   const navigate = useNavigate();

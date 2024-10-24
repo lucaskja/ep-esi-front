@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './relatorios.css';
+import './report.css';
 
 function ReportManagement() {
   const [reports, setReports] = useState([]);

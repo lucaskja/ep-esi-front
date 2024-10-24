@@ -8,8 +8,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    // Send the login data to the backend endpoint
+
     fetch('http://localhost:8080/api/auth/login', {
       method: 'POST',
       headers: {
@@ -19,18 +18,12 @@ function Login() {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
-          console.log('Success:', data);
-  
-          // Assuming the backend returns the user role in the response, e.g., data.role
-          const { role, userId } = data; // Adjust this to match your backend's response structure
-  
-          // Store the role and userId in localStorage
-          localStorage.setItem('role', role);
-          localStorage.setItem('userId', userId);
+        if (data.accessToken) {
+          const { accessToken } = data;
+
+          localStorage.setItem('token', accessToken);
   
           if (data.role === 'CCP') {
-            // Redirect to the CCP home or report management page
             window.location.href = '/report-management-ccp';
           } else if (data.role === 'PROFESSOR') {
             window.location.href = '/professor-profile';
@@ -39,7 +32,6 @@ function Login() {
           }
         } else {
           console.error('Login failed:', data.message);
-          // Handle login failure
         }
       })
       .catch((error) => {
@@ -62,7 +54,7 @@ function Login() {
           />
         </label>
         <label>
-          Password:
+          Senha:
           <input
             type="password"
             value={password}
@@ -70,11 +62,10 @@ function Login() {
             required
           />
         </label>
-        <button type="submit">Login</button>
+        <button type="submit">Entrar</button>
       </form>
       <div className="options">
-        <Link to="/registration" className="option-link">New User Registration</Link>
-        <Link to="/professor-login" className="option-link">Professor Login</Link>
+        <Link to="/registration" className="option-link">Cadastre-se</Link>
       </div>
     </div>
   );

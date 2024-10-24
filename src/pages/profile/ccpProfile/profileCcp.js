@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './perfilCcp.css';
+import './profileCcp.css';
 
 function ReportManagementCcp() {
   const [reportId, setReportId] = useState('');
