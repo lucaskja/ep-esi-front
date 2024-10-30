@@ -1,0 +1,20 @@
+<template>
+  <v-container
+    fluid
+    class="background-color--blue"
+  >
+    <v-row
+      justify="center"
+    >
+      <v-col
+        cols="auto"
+      >
+        <h1
+          class="text-white"
+        >
+          Pós Graduação Each USP
+        </h1>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
