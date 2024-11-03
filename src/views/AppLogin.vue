@@ -27,6 +27,13 @@
 
         <v-row>
           <v-col>
+            <div
+              class="mb-12 text-red d-flex justify-center"
+              v-if="isUserNotFound"
+            >
+              Login inválido!
+            </div>
+
             <v-text-field
               label="Email"
               hide-details="true"
@@ -82,27 +89,28 @@ export default {
       username: null,
       password: null,
       shouldShowPassword: false,
+      isUserNotFound: false,
     }
   },
   methods: {
     async login() {
-      const response = await axios.post(
-        "/auth/login",
-        {
+      try {
+        const response = await axios.post("/auth/login", {
           username: this.username,
           password: this.password,
-        },
-      )
+        })
 
-      const {
-        accessToken,
-        role,
-        userId,
-      } = response.data
+        const { accessToken, role, userId } = response.data
 
-      localStorage.setItem("apiToken", JSON.stringify(accessToken))
-      localStorage.setItem("role", JSON.stringify(role))
-      localStorage.setItem("userId", JSON.stringify(userId))
+        localStorage.setItem("apiToken", JSON.stringify(accessToken))
+        localStorage.setItem("role", JSON.stringify(role))
+        localStorage.setItem("userId", JSON.stringify(userId))
+
+        this.$router.push('/home')
+      } catch (error) {
+        if (error.status === 404) this.isUserNotFound = true
+        console.error("Login failed", error)
+      }
     },
   },
 }

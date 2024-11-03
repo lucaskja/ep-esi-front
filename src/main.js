@@ -11,9 +11,22 @@ axios.interceptors.request.use((config) => {
   }
   return config;
 }, (error) => {
-  // Handle any request errors
   return Promise.reject(error);
 });
+
+axios.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("apiToken")
+      localStorage.removeItem("role")
+      localStorage.removeItem("userId")
+
+      router.push('/login')
+    }
+    return Promise.reject(error)
+  }
+)
 
 import App from './App.vue'
 
@@ -21,6 +34,7 @@ import { createApp } from 'vue'
 
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import router from "@/router";
 
 const app = createApp(App)
 
