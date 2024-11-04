@@ -21,6 +21,10 @@
               :group-by="groupBy"
               item-value="uspNumber"
             >
+              <template v-slot:item.createdAt="{ item }">
+                {{ formatDate(item.createdAt) }}
+              </template>
+
               <template v-slot:item.actions="{ item }">
                 <v-tooltip text="Ver relatório">
                   <template v-slot:activator="{ props }">
@@ -45,6 +49,7 @@
     v-if="isStudentPerformanceReportModalOpen"
     :report="studentReport"
     @closeModal="closeStudentPerformanceReportModal"
+    @updateReports="fetchReports"
   />
 </template>
 
@@ -66,47 +71,56 @@ export default {
       flattenedStudents: [],
       groupBy: [
         {
-          key: "studentName"
+          key: 'studentName'
         }
       ],
       headers: [
         {
-          title: "Número USP",
-          key: "uspNumber"
+          title: 'Número USP',
+          key: 'uspNumber',
         },
         {
-          title: "Nome",
-          key: "studentName"
+          title: 'Nome',
+          key: 'studentName',
+        },
+        {
+          title: 'Data de Submissão',
+          key: 'createdAt',
         },
         {
           title: '',
           key: 'actions',
-          sortable: false
+          sortable: false,
         },
       ]
     }
   },
   async mounted() {
-    const professorId = localStorage.getItem("userId");
-    const response = await axios.get(`/professor/${professorId}/students`);
-    this.students = response.data;
-
-    this.flattenedStudents = this.students.flatMap(student =>
-      student.reports.map(report => ({
-        uspNumber: student.uspNumber,
-        studentName: student.studentName,
-        ...report
-      }))
-    )
+    await this.fetchReports()
   },
   methods: {
+    async fetchReports() {
+      const professorId = localStorage.getItem('userId');
+      const response = await axios.get(`/professor/${professorId}/students`);
+      this.students = response.data;
+
+      this.flattenedStudents = this.students.flatMap(student =>
+        student.reports.map(report => ({
+          uspNumber: student.uspNumber,
+          studentName: student.studentName,
+          ...report
+        }))
+      )
+    },
     formatDate(dateVector) {
-      if (dateVector === null || dateVector === undefined) return ""
+      if (dateVector === null || dateVector === undefined) return ''
 
       const [year, month, day] = dateVector;
       return `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
     },
     openStudentPerformanceReport(item) {
+      this.studentReport.professorId = item.student.professor.id
+      this.studentReport.id = item.id
       this.studentReport.professorOpinion = item.professorOpinion
       this.studentReport.professorFinalOpinion = item.professorFinalOpinion
       this.studentReport.ccpOpinion = item.ccpOpinion
