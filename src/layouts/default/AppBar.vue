@@ -1,27 +1,5 @@
-<!--<template>-->
-<!--  <v-container-->
-<!--    fluid-->
-<!--    class="background-color&#45;&#45;blue"-->
-<!--  >-->
-<!--    <v-row-->
-<!--      justify="center"-->
-<!--    >-->
-<!--      <v-col-->
-<!--        cols="auto"-->
-<!--      >-->
-<!--        <h1-->
-<!--          class="text-white"-->
-<!--        >-->
-<!--          Pós Graduação Each USP-->
-<!--        </h1>-->
-<!--      </v-col>-->
-<!--    </v-row>-->
-<!--  </v-container>-->
-<!--</template>-->
-
 <template>
   <v-app-bar color="#1094ab" dark dense>
-    <!-- Logo / Title Area -->
     <v-container class="d-flex align-center" fluid>
       <v-row align="center">
         <v-col>
@@ -46,16 +24,9 @@
             text
             color="white"
             class="mr-3"
+            @click="home"
           >
             Home
-          </v-btn>
-
-          <v-btn
-            text
-            color="white"
-            class="mr-3"
-          >
-            Profile
           </v-btn>
 
           <v-btn
@@ -72,7 +43,6 @@
 </template>
 
 <script>
-
 import router from "@/router";
 
 export default {
@@ -93,6 +63,9 @@ export default {
     },
   },
   methods: {
+    home() {
+      router.push('/home')
+    },
     logout() {
       localStorage.removeItem('apiToken')
       localStorage.removeItem('role')

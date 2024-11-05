@@ -1,88 +1,196 @@
 <template>
   <v-dialog
     :model-value="true"
-    max-width="600"
+    max-width="800"
+    @click:outside="closeViewModal"
   >
-    <v-card>
-      <v-card-title><h3>Detalhes do Relatório</h3></v-card-title>
-      <v-card-text>
-        <v-row
-          class="mb-5"
-        >
+    <v-card class="usp-card">
+      <v-container>
+        <v-row class="mt-4" justify="center">
           <v-col>
-            <h4>Professor</h4>
-            <p class="ml-2">Opinião do professor: {{ report.professorOpinion }}</p>
-            <p class="ml-2">Opinião final do professor: {{ report.professorFinalOpinion }}</p>
+            <v-card-subtitle class="section-title">Professor</v-card-subtitle>
+            <v-card-text>
+              <v-row>
+                <v-col>
+                  <v-textarea
+                    label="Opinião do professor"
+                    :model-value="report.professorOpinion"
+                    readonly
+                    color="usp-accent"
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Opinião final do professor"
+                    :model-value="formatFinalOpinion(report.professorFinalOpinion)"
+                    readonly
+                    color="usp-accent"
+                    hide-details="auto"
+                  />
+                </v-col>
+              </v-row>
+            </v-card-text>
+
+            <v-card-subtitle class="section-title">CCP</v-card-subtitle>
+            <v-card-text class="mb-10">
+              <v-row>
+                <v-col>
+                  <v-textarea
+                    label="Opinião da CCP"
+                    :model-value="report.ccpOpinion"
+                    readonly
+                    color="usp-accent"
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Opinião final da CCP"
+                    :model-value="formatFinalOpinion(report.ccpFinalOpinion)"
+                    readonly
+                    color="usp-accent"
+                    hide-details="auto"
+                  />
+                </v-col>
+              </v-row>
+            </v-card-text>
+
+            <v-card-subtitle class="section-title">Aluno</v-card-subtitle>
+            <v-card-text class="mb-10">
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Resumo acadêmico"
+                    :model-value="report.academicEventsResume"
+                    readonly
+                    color="usp-primary"
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Resumo da pesquisa"
+                    :model-value="report.researchResume"
+                    readonly
+                    color="usp-primary"
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Observação do estudante"
+                    :model-value="report.studentObservation"
+                    readonly
+                    color="usp-primary"
+                    hide-details="auto"
+                  />
+                </v-col>
+              </v-row>
+            </v-card-text>
           </v-col>
         </v-row>
 
-        <v-row
-          class="mb-5"
-        >
+        <v-row justify="center">
           <v-col>
-            <h4>CCP</h4>
-            <p class="ml-2">Opinião da CCP: {{ report.ccpOpinion }}</p>
-            <p class="ml-2">Opinião final da CCP: {{ report.ccpFinalOpinion }}</p>
+            <v-card-subtitle class="section-title">Exames</v-card-subtitle>
+            <v-card-text class="mb-10">
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                    label="Data do exame de qualificação"
+                    :model-value="report.qualificationExamDate"
+                    readonly
+                    color="usp-primary"
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    label="Prazo para o exame de qualificação"
+                    :model-value="report.qualificationExamDeadline"
+                    readonly
+                    color="usp-primary"
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Data do exame de proficiência em idiomas"
+                    :model-value="report.languageProficiencyExamDate"
+                    readonly
+                    color="usp-primary"
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Prazo para exame de proeficiência em idiomas"
+                    :model-value="report.languageProficiencyDeadline"
+                    readonly
+                    color="usp-primary"
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Prazo para a entrega da atribuição"
+                    :model-value="report.assigmentDeadline"
+                    readonly
+                    color="usp-primary"
+                    hide-details="auto"
+                  />
+                </v-col>
+              </v-row>
+            </v-card-text>
           </v-col>
         </v-row>
 
-        <v-row
-          class="mb-5"
-        >
+        <v-row justify="center">
           <v-col>
-            <h4>Aluno</h4>
-            <p class="ml-2">Resumo acadêmico: {{ report.academicEventsResume }}</p>
-            <p class="ml-2">Resumo da pesquisa: {{ report.researchResume }}</p>
-            <p class="ml-2">Observação do estudante: {{ report.studentObservation }}</p>
+            <v-card-subtitle class="section-title">Artigos</v-card-subtitle>
+            <v-card-text>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    label="Artigos em escrita"
+                    :model-value="report.writingArticles"
+                    readonly
+                    color="usp-primary"
+                  />
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Artigos em revisão"
+                    :model-value="report.reviewingArticles"
+                    readonly
+                    color="usp-primary"
+                  />
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Artigos aprovados"
+                    :model-value="report.approvedArticles"
+                    readonly
+                    color="usp-primary"
+                  />
+                </v-col>
+              </v-row>
+            </v-card-text>
           </v-col>
         </v-row>
 
-        <v-row
-          class="mb-5"
-        >
-          <v-col>
-            <h4>Exames</h4>
-            <p class="ml-2">Data do exame de qualificação: {{ report.qualificationExamDate }}</p>
-            <p class="ml-2">Prazo para o exame de qualificação: {{ report.qualificationExamDeadline }}</p>
-            <p class="ml-2">Data do exame de proficiência em idiomas: {{ report.languageProficiencyExamDate }}</p>
-            <p class="ml-2">Prazo para o exame de proficiência em idiomas: {{ report.languageProficiencyDeadline }}</p>
-            <p class="ml-2">Prazo para a entrega da atribuição: {{ report.assigmentDeadline }}</p>
-          </v-col>
-        </v-row>
-
-        <v-row
-          class="mb-5"
-        >
-          <v-col>
-            <h4>Artigos</h4>
-            <p class="ml-2">Artigos em escrita: {{ report.writingArticles }}</p>
-            <p class="ml-2">Artigos em revisão: {{ report.reviewingArticles }}</p>
-            <p class="ml-2">Artigos aprovados: {{ report.approvedArticles }}</p>
-          </v-col>
-        </v-row>
-      </v-card-text>
-
-      <v-row>
-        <v-col
-          class="d-flex justify-center"
-        >
-          <v-btn
-            text="Avaliar aluno"
-            variant="text"
-            @click="shouldShowRegisterStudentPerformanceReport = true"
-          />
-        </v-col>
-      </v-row>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
-          text="Fechar"
-          @click="closeViewModal"
-        />
-      </v-card-actions>
+        <v-card-actions>
+          <v-row justify="end">
+            <v-col cols="auto">
+              <v-btn class="usp-btn" @click="closeViewModal">Fechar</v-btn>
+            </v-col>
+          </v-row>
+        </v-card-actions>
+      </v-container>
     </v-card>
   </v-dialog>
+
   <RegisterStudentPerformanceReport
     v-if="shouldShowRegisterStudentPerformanceReport"
     :performance-report-id="report.id"
@@ -121,7 +229,47 @@ export default {
       this.shouldShowRegisterStudentPerformanceReport = false
       this.closeViewModal()
       this.$emit('updateReports')
+    },
+    formatFinalOpinion(opinion) {
+      if (opinion === "ADEQUATE") return "Adequado"
+
+      if (opinion === "ADEQUATE_WITH_CAVEATS") return "Adequando com ressalvas"
+
+      if (opinion === "UNSATISFYING") return "Insatisfatório"
+
+      return ""
     }
   },
 };
 </script>
+
+<style scoped>
+.usp-card {
+  border-top: 5px solid #1094ab;
+  background-color: #f7f7f7;
+}
+
+.section-title {
+  color: #FFB500;
+  font-weight: bold;
+}
+
+.usp-btn {
+  background-color: #1094ab;
+  color: white;
+}
+
+.usp-btn:hover {
+  background-color: #FFB500;
+  color: white;
+}
+
+.v-text-field__details, .v-textarea__details {
+  color: #1094ab;
+}
+
+.v-text-field--readonly .v-label,
+.v-textarea--readonly .v-label {
+  color: #1094ab !important;
+}
+</style>

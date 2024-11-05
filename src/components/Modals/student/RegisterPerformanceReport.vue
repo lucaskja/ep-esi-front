@@ -2,6 +2,7 @@
     <v-dialog
       :model-value="true"
       max-width="1000"
+      @click:outside="closeModal"
     >
       <v-card>
         <v-card-title><h3>Cadastrar Novo Relatório</h3></v-card-title>

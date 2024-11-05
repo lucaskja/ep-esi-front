@@ -1,54 +1,3 @@
-<!--<template>-->
-<!--  <v-container class="mt-5">-->
-<!--    <v-row justify="center">-->
-<!--      <v-col cols="auto">-->
-<!--        <v-card color="#FFB500" class="pa-5" elevation="3" height="250" width="750">-->
-<!--          <v-row class="px-5">-->
-<!--            <v-col>-->
-<!--              <h2 class="text-center text-white">Relatórios</h2>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
-
-<!--          <v-row>-->
-<!--            <v-col class="d-flex justify-center">-->
-<!--              <div v-for="(report, i) in reports" :key="i" class="mr-10">-->
-<!--                <p class="text-center">{{ report.createdAt }}</p>-->
-<!--                <v-btn-->
-<!--                  color="white"-->
-<!--                  @click="openStudentPerformanceReportModal(report)"-->
-<!--                  variant="text"-->
-<!--                  text="Ver Detalhes"-->
-<!--                />-->
-<!--              </div>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
-
-<!--          <v-row class="mt-10">-->
-<!--            <v-col class="d-flex justify-center">-->
-<!--              <v-btn-->
-<!--                text="Cadastrar Relatório"-->
-<!--                @click="openRegisterModal"-->
-<!--              />-->
-<!--            </v-col>-->
-<!--          </v-row>-->
-<!--        </v-card>-->
-<!--      </v-col>-->
-<!--    </v-row>-->
-
-<!--    <StudentPerformanceReportDialog-->
-<!--      v-if="isStudentPerformanceReportModalOpen"-->
-<!--      :report="selectedReport"-->
-<!--      @closeModal="closeStudentPerformanceReportModal"-->
-<!--    />-->
-
-<!--    <RegisterPerformanceReport-->
-<!--      v-if="isRegisterPerformanceReportModalOpen"-->
-<!--      @refreshReports="fetchReports"-->
-<!--      @closeModal="closeRegisterPerformanceReportModal"-->
-<!--    />-->
-<!--  </v-container>-->
-<!--</template>-->
-
 <template>
   <v-container>
     <v-card
@@ -69,144 +18,255 @@
       class="mt-4"
       justify="center"
     >
-      <v-expansion-panels
-        class="panel"
+      <v-col
+        cols="auto"
       >
-        <v-expansion-panel>
-          <v-expansion-panel-title>
-            Relatório {{ index + 1 }} - {{report.createdAt}}
-          </v-expansion-panel-title>
-          <v-expansion-panel-text>
+        <v-expansion-panels
+          class="panel"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-title>
+              Relatório {{ index + 1 }} - {{report.createdAt}}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <v-card-subtitle>
+                <strong>
+                  Professor
+                </strong>
+              </v-card-subtitle>
+              <v-card-text>
+                <v-row>
+                  <v-col>
+                    <v-textarea
+                      label="Opinião do professor"
+                      :model-value="report.professorOpinion"
+                      readonly
+                      color="#FFB500"
+                      hide-details="auto"
+                    >
+                    </v-textarea>
+                  </v-col>
+                  <v-col>
+                    <v-textarea
+                      label="Opinião final do professor"
+                      :model-value="report.professorFinalOpinion"
+                      readonly
+                      color="#FFB500"
+                      hide-details="auto"
+                    >
+                    </v-textarea>
+                  </v-col>
+                </v-row>
+              </v-card-text>
 
-            <v-card-subtitle class="subtitle">Professor</v-card-subtitle>
-            <v-row>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  label="Opinião do professor"
-                  :model-value="report.professorOpinion"
-                  readonly
-                  color="#FFB500">
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  label="Opinião final do professor"
-                  :model-value="report.professorFinalOpinion"
-                  readonly
-                  color="#FFB500">
-                </v-text-field>
-              </v-col>
-            </v-row>
+              <v-card-subtitle>
+                <strong>
+                  CCP
+                </strong>
+              </v-card-subtitle>
+              <v-card-text
+                class="mb-10"
+              >
+                <v-row>
+                  <v-col>
+                    <v-textarea
+                      label="Opinião da CCP"
+                      :model-value="report.ccpOpinion"
+                      readonly
+                      color="#FFB500"
+                      hide-details="auto"
+                    >
+                    </v-textarea>
+                  </v-col>
+                  <v-col>
+                    <v-textarea
+                      label="Opinião final da CCP"
+                      :model-value="report.ccpFinalOpinion"
+                      readonly
+                      color="#FFB500"
+                      hide-details="auto"
+                    >
+                    </v-textarea>
+                  </v-col>
+                </v-row>
+              </v-card-text>
 
-            <v-card-subtitle class="subtitle">CCP</v-card-subtitle>
-            <v-row>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  label="Opinião da CCP"
-                  :model-value="report.ccpOpinion"
-                  readonly
-                  color="#FFB500">
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  label="Opinião final da CCP"
-                  :model-value="report.ccpFinalOpinion"
-                  readonly
-                  color="#FFB500">
-                </v-text-field>
-              </v-col>
-            </v-row>
+              <v-card-subtitle>
+                <strong>
+                  Aluno
+                </strong>
+              </v-card-subtitle>
+              <v-card-text
+                class="mb-10"
+              >
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Resumo acadêmico"
+                      :model-value="report.academicEventsResume"
+                      readonly
+                      color="#00c5d4"
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
 
-            <v-card-subtitle class="subtitle">Aluno</v-card-subtitle>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  label="Resumo acadêmico"
-                  :model-value="report.academicEventsResume"
-                  readonly
-                  color="#00c5d4">
-                </v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  label="Resumo da pesquisa"
-                  :model-value="report.researchResume"
-                  readonly
-                  color="#00c5d4">
-                </v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  label="Observação do estudante"
-                  :model-value="report.studentObservation"
-                  readonly
-                  color="#00c5d4">
-                </v-text-field>
-              </v-col>
-            </v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Resumo da pesquisa"
+                      :model-value="report.researchResume"
+                      readonly
+                      color="#00c5d4"
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
 
-            <!-- Exams Section -->
-            <v-card-subtitle class="subtitle">Exames</v-card-subtitle>
-            <v-row>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  label="Data do exame de qualificação"
-                  :model-value="report.qualificationExamDate"
-                  readonly>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  label="Prazo para o exame de qualificação"
-                  :model-value="report.qualificationExamDeadline"
-                  readonly>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  label="Data do exame de proficiência em idiomas"
-                  :model-value="report.languageProficiencyExamDate"
-                  readonly>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  label="Prazo para a entrega da atribuição"
-                  :model-value="report.assigmentDeadline"
-                  readonly>
-                </v-text-field>
-              </v-col>
-            </v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Observação do estudante"
+                      :model-value="report.studentObservation"
+                      readonly
+                      color="#00c5d4"
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+    </v-row>
 
-            <v-card-subtitle class="subtitle">Artigos</v-card-subtitle>
-            <v-row>
-              <v-col cols="12" sm="4">
-                <v-text-field
-                  label="Artigos em escrita"
-                  :model-value="report.writingArticles"
-                  readonly>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="4">
-                <v-text-field
-                  label="Artigos em revisão"
-                  :model-value="report.reviewingArticles"
-                  readonly>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="4">
-                <v-text-field
-                  label="Artigos aprovados"
-                  :model-value="report.approvedArticles"
-                  readonly>
-                </v-text-field>
-              </v-col>
-            </v-row>
+    <v-row
+      justify="center"
+    >
+      <v-col
+        cols="auto"
+      >
+        <v-expansion-panels
+          class="panel"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-title>
+              Exames
+            </v-expansion-panel-title>
 
-          </v-expansion-panel-text>
-        </v-expansion-panel>
-      </v-expansion-panels>
+            <v-expansion-panel-text>
+              <v-card-text
+                class="mb-10"
+              >
+                <v-row>
+                  <v-col
+                    cols="6"
+                  >
+                    <v-text-field
+                      label="Data do exame de qualificação"
+                      :model-value="reports[0]?.qualificationExamDate"
+                      readonly
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
+
+                  <v-col
+                    cols="6"
+                  >
+                    <v-text-field
+                      label="Prazo para o exame de qualificação"
+                      :model-value="reports[0]?.qualificationExamDeadline"
+                      readonly
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
+
+                  <v-col>
+                    <v-text-field
+                      label="Data do exame de proficiência em idiomas"
+                      :model-value="reports[0]?.languageProficiencyExamDate"
+                      readonly
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
+
+                  <v-col>
+                    <v-text-field
+                      label="Prazo para exame de proeficiência em idiomas"
+                      :model-value="reports[0]?.languageProficiencyDeadline"
+                      readonly
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
+
+                  <v-col
+                    cols="12"
+                  >
+                    <v-text-field
+                      label="Prazo para a entrega da atribuição"
+                      :model-value="reports[0]?.assigmentDeadline"
+                      readonly
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+    </v-row>
+
+    <v-row
+      justify="center"
+    >
+      <v-col
+        cols="auto"
+      >
+        <v-expansion-panels
+          class="panel"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-title>
+              Artigos
+            </v-expansion-panel-title>
+
+            <v-expansion-panel-text>
+              <v-card-text>
+                <v-row>
+                  <v-col>
+                    <v-text-field
+                      label="Artigos em escrita"
+                      :model-value="reports[0]?.writingArticles"
+                      readonly>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="4">
+                    <v-text-field
+                      label="Artigos em revisão"
+                      :model-value="reports[0]?.reviewingArticles"
+                      readonly>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="4">
+                    <v-text-field
+                      label="Artigos aprovados"
+                      :model-value="reports[0]?.approvedArticles"
+                      readonly>
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-expansion-panel-text>
+
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
     </v-row>
 
     <v-row>
@@ -214,6 +274,7 @@
         class="d-flex justify-center mt-10"
       >
         <v-btn
+          v-if="lastReportIsAlreadyFinished"
           text="Cadastrar Relatório"
           @click="openRegisterModal"
         />
@@ -253,16 +314,31 @@ export default {
       selectedReport: null,
     }
   },
+  computed: {
+    lastReportIsAlreadyFinished() {
+      const reportsLength = this.reports.length
+
+      const ccpOpinion = this.reports[reportsLength - 1]?.ccpOpinion
+      const ccpFinalOpinion = this.reports[reportsLength - 1]?.ccpFinalOpinion
+      const professorOpinion = this.reports[reportsLength - 1]?.professorOpinion
+      const professorFinalOpinion = this.reports[reportsLength - 1]?.professorFinalOpinion
+
+      if (
+        (ccpOpinion === null || ccpOpinion === undefined)
+        || (ccpFinalOpinion === null || ccpFinalOpinion === undefined)
+        || (professorOpinion === null || professorOpinion !== undefined)
+        || (professorFinalOpinion === null || professorFinalOpinion === undefined)
+      ) return false
+
+      return true
+    },
+  },
   async mounted() {
     await this.fetchReports()
   },
   methods: {
     closeStudentPerformanceReportModal() {
       this.isStudentPerformanceReportModalOpen = false
-    },
-    openStudentPerformanceReportModal(report) {
-      this.selectedReport = report
-      this.isStudentPerformanceReportModalOpen = true
     },
     closeRegisterPerformanceReportModal() {
       this.isRegisterPerformanceReportModalOpen = false
