@@ -296,8 +296,8 @@
 </template>
 
 <script>
-import StudentPerformanceReportDialog from "@/components/Modals/student/StudentPerformanceReportDialog.vue";
-import RegisterPerformanceReport from "@/components/Modals/student/RegisterPerformanceReport.vue";
+import StudentPerformanceReportDialog from "@/components/modal/student/StudentPerformanceReportDialog.vue";
+import RegisterPerformanceReport from "@/components/modal/student/RegisterStudentPerformanceReportDialog.vue";
 import axios from "axios";
 
 export default {

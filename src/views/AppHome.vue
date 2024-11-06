@@ -3,20 +3,20 @@
     v-if="shouldShowStudentView"
   />
 
-  <ProfessorPerformanceReport
-    v-if="shouldShowProfessorView"
+  <PerformanceReport
+    v-if="shouldShowPerformanceReport"
   />
 </template>
 
 <script>
-import StudentPerformanceReport from "@/components/StudentPerformanceReport.vue";
-import ProfessorPerformanceReport from "@/components/ProfessorPerformanceReport.vue";
+import StudentPerformanceReport from "@/views/AppStudentPerformanceReport.vue";
+import PerformanceReport from "@/views/AppPerformanceReport.vue";
 
 export default {
   name: 'ReportList',
   components: {
     StudentPerformanceReport,
-    ProfessorPerformanceReport,
+    PerformanceReport
   },
   beforeMount() {
     this.witchViewRender()
@@ -24,8 +24,7 @@ export default {
   data() {
     return {
       shouldShowStudentView: false,
-      shouldShowProfessorView: false,
-      shouldShowCcpView: false,
+      shouldShowPerformanceReport: false,
     }
   },
   methods: {
@@ -34,9 +33,7 @@ export default {
 
       if (role === "STUDENT") this.shouldShowStudentView = true
 
-      if (role === "PROFESSOR") this.shouldShowProfessorView = true
-
-      if (role === "CCP") this.shouldShowCcpView = true
+      if (role === "PROFESSOR" || role === "CCP") this.shouldShowPerformanceReport = true
     }
   },
 }

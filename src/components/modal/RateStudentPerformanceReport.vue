@@ -17,7 +17,7 @@
               variant="solo-filled"
               clearable
               class="usp-textarea mb-5"
-              v-model="professorOpinion"
+              v-model="opinion"
               color="usp-primary"
             />
           </v-col>
@@ -28,7 +28,7 @@
             <v-chip-group
               selected-class="chip--active"
               class="d-flex justify-center"
-              v-model="professorFinalOpinion"
+              v-model="finalOpinion"
             >
               <v-chip value="ADEQUATE" class="usp-chip">
                 Adequado
@@ -49,7 +49,7 @@
           <v-btn
             class="usp-btn"
             variant="text"
-            @click="sendProfessorOpinion"
+            @click="sendOpinion"
           >
             Enviar
           </v-btn>
@@ -80,29 +80,32 @@ export default {
   name: 'ReportDialogs',
   props: {
     performanceReportId: Number,
-    professorId: Number,
   },
   data() {
     return {
-      professorOpinion: null,
-      professorFinalOpinion: null,
+      opinion: null,
+      finalOpinion: null,
     };
   },
   methods: {
     closeModal() {
       this.$emit('closeModal');
     },
-    async sendProfessorOpinion() {
+    async sendOpinion() {
+      const role = localStorage.getItem('role').replace(/"/g, '')
+      const id = localStorage.getItem('userId')
+      const isProfessorOrCcp = role === 'CCP' ? 'ccp' : 'professor'
+
       try {
         await axios.post(
-          `/performance-report/professor/opinion/${this.performanceReportId}`,
+          `/performance-report/${isProfessorOrCcp}/opinion/${this.performanceReportId}`,
           {
-            professorId: this.professorId,
-            professorOpinion: this.professorOpinion,
-            professorFinalOpinion: this.professorFinalOpinion,
+            [`${isProfessorOrCcp}Id`]: id,
+            ccpOpinion: this.opinion,
+            ccpFinalOpinion: this.finalOpinion,
           }
         )
-        this.$emit("closeAll")
+        this.closeModal()
       } catch (e) {
         console.log(e)
       }
