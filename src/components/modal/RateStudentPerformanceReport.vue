@@ -77,7 +77,7 @@
 import axios from "axios";
 
 export default {
-  name: 'ReportDialogs',
+  name: 'RateStudentPerformanceReport',
   props: {
     performanceReportId: Number,
   },

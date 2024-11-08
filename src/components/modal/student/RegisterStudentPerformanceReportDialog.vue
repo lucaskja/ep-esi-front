@@ -58,7 +58,7 @@
 import axios from "axios";
 
 export default {
-  name: 'ReportDialogs',
+  name: 'RegisterStudentPerformanceReportDialog',
   data() {
     return {
       researchResume: null,

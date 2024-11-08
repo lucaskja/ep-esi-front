@@ -53,6 +53,7 @@
                 v-model="selectedSearchProfessor"
                 label="Buscar alunos por professor"
                 no-data-text="Professor não encontrado"
+                clearable
                 @update:modelValue="fetchSelectedStudent"
               />
             </v-col>
@@ -142,9 +143,11 @@
 import axios from 'axios';
 import RegisterStudentPerformanceReport from "@/components/modal/RateStudentPerformanceReport.vue";
 import StudentPerformanceReportDialog from "@/components/modal/student/StudentPerformanceReportDialog.vue";
+import appLogin from "@/views/AppLogin.vue";
+import {Logger} from "sass";
 
 export default {
-  name: 'ProfessorPerformanceReport',
+  name: 'AppPerformanceReport',
   components: {
     RegisterStudentPerformanceReport,
     StudentPerformanceReportDialog,
@@ -211,17 +214,30 @@ export default {
         return
       }
 
-      if (this.selectedSearchProfessor === null || this.selectedSearchProfessor === undefined) {
-        const id = localStorage.getItem('userId')
-        const response = await axios.get(`/professor/${id}/student/${this.selectedSearchStudent}`)
+      if (
+        (this.selectedSearchProfessor === null || this.selectedSearchProfessor === undefined)
+        && (this.selectedSearchStudent != null || this.selectedSearchStudent != undefined)
+      ) {
+        const response = await axios.get(`/student/${this.selectedSearchStudent}`)
+        console.log(this.selectedSearchStudent)
 
-        this.students = response.data
+        this.students = [
+          {
+            uspNumber: response.data.uspNumber,
+            studentName: response.data.studentInformation.name,
+            reports: response.data.performanceReports
+          }
+        ]
         return
       }
 
-      const response = await axios.get(`/professor/${this.selectedSearchProfessor}/student/${this.selectedSearchStudent}`)
+      const response = await axios.get(`/professor/${this.selectedSearchProfessor}/students`)
 
-      this.students = response.data
+      this.students = response.data.map(student => ({
+        ...student,
+        studentName: student.studentName,
+        reports: student.reports
+      }))
     },
     async fetchAllStudents() {
       const response = await axios.get('/student/all')

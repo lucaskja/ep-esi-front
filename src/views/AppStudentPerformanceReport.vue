@@ -301,7 +301,7 @@ import RegisterPerformanceReport from "@/components/modal/student/RegisterStuden
 import axios from "axios";
 
 export default {
-  name: 'StudentPerformanceReport',
+  name: 'AppStudentPerformanceReport',
   components: {
     StudentPerformanceReportDialog,
     RegisterPerformanceReport,

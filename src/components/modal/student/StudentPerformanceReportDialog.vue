@@ -275,7 +275,7 @@
 import RegisterStudentPerformanceReport from '@/components/modal/RateStudentPerformanceReport.vue';
 
 export default {
-  name: 'ReportDialogs',
+  name: 'StudentPerformanceReportDialog',
   components: {
     RegisterStudentPerformanceReport
   },
