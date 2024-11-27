@@ -3,7 +3,11 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:8080'
 axios.interceptors.request.use((config) => {
-  if (!config.url.startsWith('/auth')) {
+  console.log()
+  if (
+    !config.url.startsWith('/auth')
+    && !config.url !== "/professor/all"
+  ) {
     config.headers['Authorization'] = `Bearer ${
       localStorage.getItem("apiToken")
         .replace(/"/g, '')

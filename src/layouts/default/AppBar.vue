@@ -51,6 +51,7 @@ export default {
   },
   data() {
     return {
+      userId: localStorage.getItem('userId'),
       reports: [],
       isStudentPerformanceReportModalOpen: false,
       isRegisterPerformanceReportModalOpen: false,
@@ -59,8 +60,14 @@ export default {
   },
   computed: {
     isLogged() {
-      return !(localStorage.getItem('userId') === null || localStorage.getItem('userId') === undefined);
+      return this.userId !== null && this.userId !== undefined;
     },
+  },
+  mounted() {
+    this.localStorageWatcher = setInterval(this.syncUserId, 50);
+  },
+  beforeUnmount() {
+    clearInterval(this.localStorageWatcher);
   },
   methods: {
     home() {
@@ -72,6 +79,13 @@ export default {
       localStorage.removeItem('userId')
 
       router.push('/login')
+    },
+    syncUserId() {
+      const storedUserId = localStorage.getItem('userId');
+
+      if (this.userId !== storedUserId) {
+        this.userId = storedUserId;
+      }
     },
   },
 }

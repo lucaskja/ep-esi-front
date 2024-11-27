@@ -71,25 +71,43 @@
             />
           </v-col>
         </v-row>
+
+        <v-row>
+          <v-col
+            class="d-flex justify-center"
+          >
+            <v-btn
+              text="Cadastrar-se"
+              @click="openStudentModal"
+            />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
+
+  <RegisterStudent
+    v-if="shouldOpenRegisterStudentModal"
+    @closeModal="shouldOpenRegisterStudentModal = false"
+  />
 </template>
 
 <script>
 import axios from 'axios'
+import RegisterStudent from "@/components/modal/student/RegisterStudent.vue";
 
 export default {
   name: 'AppLogin',
   components: {
-
-},
+    RegisterStudent,
+  },
   data() {
     return {
       username: null,
       password: null,
       shouldShowPassword: false,
       isUserNotFound: false,
+      shouldOpenRegisterStudentModal: false
     }
   },
   methods: {
@@ -111,6 +129,9 @@ export default {
         if (error.status === 404) this.isUserNotFound = true
         console.error("Login failed", error)
       }
+    },
+    openStudentModal() {
+      this.shouldOpenRegisterStudentModal = true
     },
   },
 }

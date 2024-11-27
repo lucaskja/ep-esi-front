@@ -257,7 +257,8 @@
                     <v-text-field
                       label="Artigos aprovados"
                       :model-value="reports[0]?.approvedArticles"
-                      readonly>
+                      readonly
+                    >
                     </v-text-field>
                   </v-col>
                 </v-row>
@@ -282,17 +283,17 @@
     </v-row>
   </v-container>
 
-      <StudentPerformanceReportDialog
-        v-if="isStudentPerformanceReportModalOpen"
-        :report="selectedReport"
-        @closeModal="closeStudentPerformanceReportModal"
-      />
+  <StudentPerformanceReportDialog
+    v-if="isStudentPerformanceReportModalOpen"
+    :report="selectedReport"
+    @closeModal="closeStudentPerformanceReportModal"
+  />
 
-      <RegisterPerformanceReport
-        v-if="isRegisterPerformanceReportModalOpen"
-        @refreshReports="fetchReports"
-        @closeModal="closeRegisterPerformanceReportModal"
-      />
+  <RegisterPerformanceReport
+    v-if="isRegisterPerformanceReportModalOpen"
+    @refreshReports="fetchReports"
+    @closeModal="closeRegisterPerformanceReportModal"
+  />
 </template>
 
 <script>
