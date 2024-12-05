@@ -1,14 +1,13 @@
-import { registerPlugins } from '@/plugins'
+import { registerPlugins } from './plugins/index.js'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:8080'
 axios.interceptors.request.use((config) => {
-  console.log()
   if (
     !config.url.startsWith('/auth')
-    && !config.url !== "/professor/all"
+    && config.url !== "/professor/all"
   ) {
-    config.headers['Authorization'] = `Bearer ${
+        config.headers['Authorization'] = `Bearer ${
       localStorage.getItem("apiToken")
         .replace(/"/g, '')
     }`;
@@ -38,7 +37,7 @@ import { createApp } from 'vue'
 
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-import router from "@/router";
+import router from "./router/index.js";
 
 const app = createApp(App)
 
