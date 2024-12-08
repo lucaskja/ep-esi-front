@@ -195,7 +195,7 @@
 
                   <v-col>
                     <v-text-field
-                      label="Prazo para exame de proeficiência em idiomas"
+                      label="Prazo para exame de proficiência em idiomas"
                       :model-value="reports[0]?.languageProficiencyDeadline"
                       readonly
                       hide-details="auto"
@@ -213,6 +213,19 @@
                       hide-details="auto"
                     >
                     </v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    class="d-flex justify-content-end mt-50"
+                  >
+                    <v-btn
+                      color="primary"
+                      @click="handleClick"
+                    >
+                      Submeter
+                    </v-btn>
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -262,6 +275,20 @@
                     </v-text-field>
                   </v-col>
                 </v-row>
+                
+                <v-row>
+                  <v-col
+                    class="d-flex justify-content-end mt-60"
+                  >
+                    <v-btn
+                      color="primary"
+                      @click="handleClick"
+                    >
+                      Submeter
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              
               </v-card-text>
             </v-expansion-panel-text>
 
